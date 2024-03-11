@@ -9,25 +9,17 @@ function App() {
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState("");
 
-  const btnStyle = {
-    color: "gray", // 여기 "#gray" 대신 "gray"를 사용해야 합니다.
-    border: "none",
-    padding: "5px 9px",
-    borderRadius: "50px",
-    float: "right",
-  };
-
-  const getStyle = () => {
-    return {
-      display: "flex",
-      padding: "10px",
-      border: "1px solid gray",
-      textDecoration: "none", // CSS 속성은 camelCase를 사용해야 하므로 "TextDecoration"이 아닌 "textDecoration"이 되어야 합니다.
-      marginBottom: "10px",
-      alignItems: "center",
-      justifyContent: "space-between",
-    };
-  };
+  // const getStyle = () => {
+  //   return {
+  //     display: "flex",
+  //     padding: "10px",
+  //     border: "1px solid gray",
+  //     textDecoration: "none", // CSS 속성은 camelCase를 사용해야 하므로 "TextDecoration"이 아닌 "textDecoration"이 되어야 합니다.
+  //     marginBottom: "10px",
+  //     alignItems: "center",
+  //     justifyContent: "space-between",
+  //   };
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,21 +50,17 @@ function App() {
   };
 
   return (
-    <div className="container" style={{ minWidth: "320px", overflowX: "auto" }}>
+    <div className="container">
       <div className="title">
         <h1>예산 계산기</h1>
       </div>
-      <form
-        style={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}
-        onSubmit={handleSubmit}
-      >
-        <div className="input-group" style={{ marginRight: "10px" }}>
+      <form onSubmit={handleSubmit}>
+        <div className="input-group">
           <label htmlFor="itemName">지출 항목</label>
           <input
             ref={itemNameInput}
             type="text"
             name="value"
-            style={{ flex: "10", padding: "5px", marginRight: "10px" }}
             placeholder="예):렌트비 "
             value={itemName}
             onChange={handleChangeItemName}
@@ -84,7 +72,6 @@ function App() {
           <input
             type="text"
             name="value"
-            style={{ flex: "10", padding: "5px", marginRight: "10px" }}
             placeholder="0"
             value={itemPrice}
             onChange={handleChangeItemPrice}
@@ -96,46 +83,14 @@ function App() {
 
       <div className="lists">
         {listObject.map((data) => (
-          <div key={data.id} className="list" style={getStyle()}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <div
-                className="name"
-                style={{
-                  display: "inline-box",
-                  width: "200px",
-                  height: "20px",
-                  justifyContent: "center",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  textAlign: "left",
-                  background: "#fff",
-                }}
-              >
-                {data.name}
-              </div>
-              <div
-                className="price"
-                style={{
-                  display: "inline-box",
-                  width: "200px",
-                  height: "20px",
-                  justifyContent: "center",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  textAlign: "left",
-                  background: "#fff",
-                }}
-              >
-                {data.price}
-              </div>
+          <div key={data.id} className="list">
+            <div>
+              <div className="name">{data.name}</div>
+              <div className="price">{data.price}</div>
             </div>
             <div>
-              <button style={btnStyle} onClick={() => handleClick(data.id)}>
-                삭제
-              </button>
-              <button style={btnStyle}>수정</button>
+              <button>수정</button>
+              <button onClick={() => handleClick(data.id)}>삭제</button>
             </div>
           </div>
         ))}
