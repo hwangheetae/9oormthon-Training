@@ -1,0 +1,21 @@
+.container {
+  margin: auto;
+  max-width: 600px;
+  padding: 30px;
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: -9px 17px 13px rgb(0, 0, 0 / 13%);
+}
+
+.list {
+  background-color: white;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.title {
+  position: fix;
+  width: 1200px;
+}
