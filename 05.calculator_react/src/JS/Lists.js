@@ -1,27 +1,11 @@
 import React from "react";
+import List from "./List"; // 새 List 컴포넌트 불러오기
 
 function Lists({ listObject, handleClick }) {
   return (
-    <div className="">
+    <div>
       {listObject.map((data) => (
-        <div key={data.id} className="flex  space-x-4 mb-3 border my-5">
-          <div className="flex flex-1 justify-center  ">
-            <div className=" w-1/2 px-4 py-2  bg-white">{data.name}</div>
-            <div className=" w-1/2 px-4 py-2  bg-white ">{data.price}</div>
-          </div>
-          <div className="flex space-x-2 ">
-            <button className=" text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded shadow">
-              수정
-            </button>
-
-            <button
-              className=" text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded shadow"
-              onClick={() => handleClick(data.id)}
-            >
-              삭제
-            </button>
-          </div>
-        </div>
+        <List key={data.id} data={data} handleClick={handleClick} /> // List 컴포넌트 사용
       ))}
     </div>
   );
