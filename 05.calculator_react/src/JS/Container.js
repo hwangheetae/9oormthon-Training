@@ -47,26 +47,32 @@ function Container() {
   };
   return (
     <div>
-      <div className="container">
+      <div className=" container  mx-auto overflow-hidden bg-white p-5 shadow-lg rounded-lg mt-5 justify-center">
         <form onSubmit={handleSubmit}>
-          <Input
-            label="지출 항목"
-            type="text"
-            name="itemName"
-            placeholder="예):렌트비 "
-            value={itemName}
-            onChange={handleChangeItemName}
-            ref={itemNameInput}
-          />
-          <Input
-            label="비용"
-            type="text"
-            name="itemPrice"
-            placeholder="0"
-            value={itemPrice}
-            onChange={handleChangeItemPrice}
-          />
-          <input type="submit" value="제출" className="btn"></input>
+          <div className="w-full flex">
+            <Input
+              label="지출 항목"
+              type="text"
+              name="itemName"
+              placeholder="예):렌트비 "
+              value={itemName}
+              onChange={handleChangeItemName}
+              ref={itemNameInput}
+            />
+            <Input
+              label="비용"
+              type="text"
+              name="itemPrice"
+              placeholder="0"
+              value={itemPrice}
+              onChange={handleChangeItemPrice}
+            />
+          </div>
+          <input
+            type="submit"
+            value="제출"
+            className="inline-block  px-5 py-2.5 text-base bg-green-500 text-white rounded-md cursor-pointer mr-1.5 hover:bg-red-700 "
+          ></input>
         </form>
 
         <Lists listObject={listObject} handleClick={handleClick} />
