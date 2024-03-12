@@ -1,7 +1,7 @@
 import React from "react";
 
-function TotalAmount() {
-  return <div className="total-amount">총지출:</div>;
+function TotalAmount({ totalAmount }) {
+  return <div className="total-amount">총 지출: {totalAmount}</div>;
 }
 
 export default TotalAmount;
