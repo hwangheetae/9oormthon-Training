@@ -2,8 +2,6 @@ import React, { memo } from "react";
 import List from "./List"; // 새 List 컴포넌트 불러오기
 
 const Lists = memo(({ listObject, handleClick }) => {
-  console.log("Lists Component");
-
   return (
     <div>
       {listObject.map((data) => (

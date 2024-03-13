@@ -1,4 +1,4 @@
-import React, { useRef, useState, memo, useCallback } from "react";
+import React, { useRef, useState, memo, useCallback, useMemo } from "react";
 import Input from "./Input";
 import Lists from "./Lists";
 import TotalAmount from "./TotalAmount";
@@ -11,7 +11,9 @@ const Container = memo(() => {
     { id: 2, name: "술", price: 35000 },
   ]);
 
-  const totalAmount = listObject.reduce((tot, item) => tot + item.price, 0);
+  const totalAmount = useMemo(() => {
+    return listObject.reduce((tot, item) => tot + item.price, 0);
+  }, [listObject]);
 
   const [itemName, setItemName] = useState("");
 

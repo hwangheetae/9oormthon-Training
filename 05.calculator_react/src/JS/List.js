@@ -2,8 +2,6 @@ import React, { memo } from "react";
 import Button from "./Button";
 
 const List = memo(({ data, handleClick }) => {
-  console.log("list Component");
-
   return (
     <div key={data.id} className="flex space-x-4 mb-3 border my-5">
       <div className="flex flex-1 justify-center">
