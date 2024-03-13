@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, memo, useCallback } from "react";
 import Input from "./Input";
 import Lists from "./Lists";
 import TotalAmount from "./TotalAmount";
-function Container() {
+
+const Container = memo(() => {
   const itemNameInput = useRef(null);
 
   const [listObject, setListObject] = useState([
@@ -12,7 +13,6 @@ function Container() {
 
   const totalAmount = listObject.reduce((tot, item) => tot + item.price, 0);
 
-  console.log(totalAmount);
   const [itemName, setItemName] = useState("");
 
   const [itemPrice, setItemPrice] = useState("");
@@ -32,11 +32,11 @@ function Container() {
     itemNameInput.current.focus();
   };
 
-  const handleClick = (id) => {
+  const handleClick = useCallback((id) => {
     setListObject((currentList) =>
       currentList.filter((item) => item.id !== id)
     );
-  };
+  }, []);
 
   const handleChangeItemName = (e) => {
     setItemName(e.target.value);
@@ -80,6 +80,6 @@ function Container() {
       <TotalAmount totalAmount={totalAmount} />
     </div>
   );
-}
+});
 
 export default Container;

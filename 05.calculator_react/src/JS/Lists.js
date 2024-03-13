@@ -1,7 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import List from "./List"; // 새 List 컴포넌트 불러오기
 
-function Lists({ listObject, handleClick }) {
+const Lists = memo(({ listObject, handleClick }) => {
+  console.log("Lists Component");
+
   return (
     <div>
       {listObject.map((data) => (
@@ -9,6 +11,6 @@ function Lists({ listObject, handleClick }) {
       ))}
     </div>
   );
-}
+});
 
 export default Lists;

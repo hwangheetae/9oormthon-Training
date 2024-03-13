@@ -1,7 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import Button from "./Button";
 
-function List({ data, handleClick }) {
+const List = memo(({ data, handleClick }) => {
+  console.log("list Component");
+
   return (
     <div key={data.id} className="flex space-x-4 mb-3 border my-5">
       <div className="flex flex-1 justify-center">
@@ -25,6 +27,6 @@ function List({ data, handleClick }) {
       </div>
     </div>
   );
-}
+});
 
 export default List;

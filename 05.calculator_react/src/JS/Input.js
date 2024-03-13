@@ -1,5 +1,4 @@
 import React from "react";
-
 const Input = React.forwardRef(
   ({ label, type, name, placeholder, value, onChange }, ref) => (
     <div className="mb-4">
