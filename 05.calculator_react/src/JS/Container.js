@@ -1,4 +1,11 @@
-import React, { useRef, useState, memo, useCallback, useMemo } from "react";
+import React, {
+  useRef,
+  useState,
+  memo,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import Input from "./Input";
 import Lists from "./Lists";
 import TotalAmount from "./TotalAmount";
@@ -6,26 +13,29 @@ import TotalAmount from "./TotalAmount";
 const Container = memo(() => {
   const itemNameInput = useRef(null);
 
-  const handleUpdate = useCallback((id, newName, newPrice) => {
-    setListObject((currentList) =>
-      currentList.map((item) =>
-        item.id === id ? { ...item, name: newName, price: newPrice } : item
-      )
-    );
-  }, []);
-  const [listObject, setListObject] = useState([
-    { id: 1, name: "밥먹기", price: 12000 },
-    { id: 2, name: "술", price: 35000 },
-  ]);
+  const [listObject, setListObject] = useState(() => {
+    const savedList = localStorage.getItem("listObject");
+    try {
+      const parsedList = JSON.parse(savedList);
+      return Array.isArray(parsedList) ? parsedList : [];
+    } catch {
+      return [];
+    }
+  });
 
   const totalAmount = useMemo(() => {
-    return listObject.reduce((tot, item) => tot + item.price, 0);
+    return Array.isArray(listObject)
+      ? listObject.reduce((tot, item) => tot + item.price, 0)
+      : 0;
   }, [listObject]);
 
   const [itemName, setItemName] = useState("");
 
   const [itemPrice, setItemPrice] = useState("");
 
+  useEffect(() => {
+    localStorage.setItem("listObject", JSON.stringify(listObject));
+  }, [listObject]);
   const handleSubmit = (e) => {
     e.preventDefault();
     let newItem = {
@@ -35,11 +45,20 @@ const Container = memo(() => {
     };
 
     setListObject((currentList) => [...currentList, newItem]);
+
     setItemName("");
     setItemPrice("");
 
     itemNameInput.current.focus();
   };
+
+  const handleUpdate = useCallback((id, newName, newPrice) => {
+    setListObject((currentList) =>
+      currentList.map((item) =>
+        item.id === id ? { ...item, name: newName, price: newPrice } : item
+      )
+    );
+  }, []);
 
   const handleClick = useCallback((id) => {
     setListObject((currentList) =>
