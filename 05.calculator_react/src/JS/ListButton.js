@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-const Button = memo(({ handleClick, data, css, value }) => {
+const ListButton = memo(({ handleClick, data, css, value }) => {
   const classes = `${css} text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded shadow`;
   return (
     <button className={classes} onClick={() => handleClick(data.id)}>
@@ -9,4 +9,4 @@ const Button = memo(({ handleClick, data, css, value }) => {
   );
 });
 
-export default Button;
+export default ListButton;

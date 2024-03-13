@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import Button from "./Button";
+import ListButton from "./ListButton";
 
 const List = memo(({ data, handleClick }) => {
   return (
@@ -9,14 +9,14 @@ const List = memo(({ data, handleClick }) => {
         <div className="w-1/2 px-4 py-2 bg-white">{data.price}</div>
       </div>
       <div className="flex space-x-2">
-        <Button
+        <ListButton
           /// handleClick 함수 작성 필요
           handleClick={handleClick}
           data={data}
           css="bg-red-500 hover:bg-red-600"
           value="수정"
         />
-        <Button
+        <ListButton
           handleClick={handleClick}
           data={data}
           css="bg-green-500 hover:bg-green-600"
