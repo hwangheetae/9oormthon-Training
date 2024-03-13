@@ -9,10 +9,16 @@ import React, {
 import Input from "./Input";
 import Lists from "./List/Lists";
 import TotalAmount from "./View/TotalAmount";
-
+import Notification from "./View/Notification";
 const Container = memo(() => {
+  //알림 처리
+  const [showNotification, setShowNotification] = useState(false);
+  const [message, setMessage] = useState("");
+
+  //focus 처리
   const itemNameInput = useRef(null);
 
+  //listObject 관리
   const [listObject, setListObject] = useState(() => {
     const savedList = localStorage.getItem("listObject");
     try {
@@ -23,19 +29,23 @@ const Container = memo(() => {
     }
   });
 
+  const [itemName, setItemName] = useState("");
+
+  const [itemPrice, setItemPrice] = useState("");
+
+  //총 지출 계산
   const totalAmount = useMemo(() => {
     return Array.isArray(listObject)
       ? listObject.reduce((tot, item) => tot + item.price, 0)
       : 0;
   }, [listObject]);
 
-  const [itemName, setItemName] = useState("");
-
-  const [itemPrice, setItemPrice] = useState("");
-
+  //local Storage 저장
   useEffect(() => {
     localStorage.setItem("listObject", JSON.stringify(listObject));
   }, [listObject]);
+
+  //아이템 추가
   const handleSubmit = (e) => {
     e.preventDefault();
     let newItem = {
@@ -45,26 +55,16 @@ const Container = memo(() => {
     };
 
     setListObject((currentList) => [...currentList, newItem]);
-
+    setShowNotification(true);
+    setMessage("추가");
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
     setItemName("");
     setItemPrice("");
 
     itemNameInput.current.focus();
   };
-
-  const handleUpdate = useCallback((id, newName, newPrice) => {
-    setListObject((currentList) =>
-      currentList.map((item) =>
-        item.id === id ? { ...item, name: newName, price: newPrice } : item
-      )
-    );
-  }, []);
-
-  const handleClick = useCallback((id) => {
-    setListObject((currentList) =>
-      currentList.filter((item) => item.id !== id)
-    );
-  }, []);
 
   const handleChangeItemName = (e) => {
     setItemName(e.target.value);
@@ -74,13 +74,46 @@ const Container = memo(() => {
     setItemPrice(e.target.value);
   };
 
+  //아이템 업데이트
+  const handleUpdate = useCallback((id, newName, newPrice) => {
+    setListObject((currentList) =>
+      currentList.map((item) =>
+        item.id === id ? { ...item, name: newName, price: newPrice } : item
+      )
+    );
+    setShowNotification(true);
+    setMessage("수정");
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
+  }, []);
+
+  //아이템 삭제
+  const handleClick = useCallback((id) => {
+    setListObject((currentList) =>
+      currentList.filter((item) => item.id !== id)
+    );
+
+    setShowNotification(true);
+    setMessage("삭제");
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
+  }, []);
+
+  //전체지우기
   const handleRemoveClick = (e) => {
     setListObject([]);
+    setShowNotification(true);
+    setMessage("전부삭제");
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
   };
-
   return (
     <div>
-      <div className=" container  mx-auto overflow-hidden bg-white p-5 shadow-lg rounded-lg mt-5 justify-center">
+      {showNotification && <Notification message={message} />}
+      <div className=" container mx-auto overflow-hidden bg-white p-5 shadow-lg rounded-lg mt-5 justify-center w-[1100px]">
         <form onSubmit={handleSubmit}>
           <div className="w-full flex">
             <Input

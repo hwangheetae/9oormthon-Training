@@ -1,7 +1,7 @@
 import React from "react";
 const Input = React.forwardRef(
   ({ label, type, name, placeholder, value, onChange }, ref) => (
-    <div className="mb-4">
+    <div className="mb-4 flex-1">
       <label
         className="block text-gray-700 text-sm font-bold mb-2"
         htmlFor={name}
