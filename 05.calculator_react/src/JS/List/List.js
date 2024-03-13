@@ -14,6 +14,10 @@ const List = memo(({ data, handleClick, handleUpdate }) => {
     setIsEditing(false);
   };
 
+  const handleChangePrice = (e) => {
+    const value = e.target.value;
+    setEditedPrice(value === "" ? "" : Number(value));
+  };
   return (
     <div key={data.id} className="flex space-x-4 mb-3 border my-5">
       {isEditing ? (
@@ -29,7 +33,7 @@ const List = memo(({ data, handleClick, handleUpdate }) => {
             type="number"
             value={editedPrice}
             placeholder={data.price}
-            onChange={(e) => setEditedPrice(Number(e.target.value))}
+            onChange={handleChangePrice}
           />
           <ListButton
             handleClick={handleSaveClick}
