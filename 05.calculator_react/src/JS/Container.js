@@ -6,6 +6,13 @@ import TotalAmount from "./TotalAmount";
 const Container = memo(() => {
   const itemNameInput = useRef(null);
 
+  const handleUpdate = useCallback((id, newName, newPrice) => {
+    setListObject((currentList) =>
+      currentList.map((item) =>
+        item.id === id ? { ...item, name: newName, price: newPrice } : item
+      )
+    );
+  }, []);
   const [listObject, setListObject] = useState([
     { id: 1, name: "밥먹기", price: 12000 },
     { id: 2, name: "술", price: 35000 },
@@ -51,6 +58,7 @@ const Container = memo(() => {
   const handleRemoveClick = (e) => {
     setListObject([]);
   };
+
   return (
     <div>
       <div className=" container  mx-auto overflow-hidden bg-white p-5 shadow-lg rounded-lg mt-5 justify-center">
@@ -81,13 +89,19 @@ const Container = memo(() => {
           ></input>
         </form>
 
-        <Lists listObject={listObject} handleClick={handleClick} />
-        <button
-          onClick={handleRemoveClick}
-          className="inline-block  px-5 py-2.5 text-base bg-green-500 text-white rounded-md cursor-pointer mr-1.5 hover:bg-red-700 "
-        >
-          전체 지우기
-        </button>
+        <div>
+          <Lists
+            listObject={listObject}
+            handleClick={handleClick}
+            handleUpdate={handleUpdate}
+          />
+          <button
+            onClick={handleRemoveClick}
+            className="inline-block  px-5 py-2.5 text-base bg-green-500 text-white rounded-md cursor-pointer mr-1.5 hover:bg-red-700 "
+          >
+            전체 지우기
+          </button>
+        </div>
       </div>
       <TotalAmount totalAmount={totalAmount} />
     </div>
