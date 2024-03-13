@@ -7,8 +7,8 @@ import React, {
   useEffect,
 } from "react";
 import Input from "./Input";
-import Lists from "./Lists";
-import TotalAmount from "./TotalAmount";
+import Lists from "./List/Lists";
+import TotalAmount from "./View/TotalAmount";
 
 const Container = memo(() => {
   const itemNameInput = useRef(null);

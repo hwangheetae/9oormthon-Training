@@ -1,5 +1,5 @@
 import React from "react";
-import Title from "./JS/Title";
+import Title from "./JS/View/Title";
 import Container from "./JS/Container";
 import "./CSS/App.css";
 
